@@ -26,6 +26,10 @@ export default class LogInForm extends React.Component{
         });
     }
 
+    getTripContext = ()=>{
+        this.context.tripContext.getTrip();
+    }
+
     setContextDriver = (driver)=>{
         this.context.driverContext.setDriver(driver);
     }
@@ -57,7 +61,8 @@ export default class LogInForm extends React.Component{
                 DriverTokenService.saveToken(resData.token);
 
                 this.setContextDriver(resData.driver);
-                
+                this.getTripContext();
+
                 this.props.history.push("/driver");
             })
             .catch( err => {
