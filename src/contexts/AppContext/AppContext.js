@@ -2,7 +2,8 @@ import React from "react";
 import App from "../../App/App";
 
 const AppContext = React.createContext({
-    driverContext: {}
+    driverContext: {},
+    tripContext: {}
 });
 
 export default AppContext;
@@ -10,7 +11,8 @@ export default AppContext;
 export class AppProvider extends React.Component{
     render(){
         const value = {
-            driverContext: this.props.driverContext
+            driverContext: this.props.driverContext,
+            tripContext: this.props.tripContext
         };
 
         return (
