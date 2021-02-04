@@ -1,6 +1,5 @@
 import React from "react";
 import "./NavMenu.css";
-import MenuBurger from "./MenuBurger/MenuBurger";
 import DriverTokenService from "../../../services/DriverTokenService/DriverTokenService";
 import AppContext from "../../../contexts/AppContext/AppContext";
 
@@ -27,7 +26,6 @@ export default class NavMenu extends React.Component{
     render(){
         return (
             <nav id="nav-container">
-                <MenuBurger/>
                 <ul id="nav-list-container">
                     <li className="nav-list-item">Dash</li>
                     <li className="nav-list-item">Account</li>

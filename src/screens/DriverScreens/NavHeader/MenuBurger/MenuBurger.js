@@ -3,18 +3,24 @@ import "./MenuBurger.css";
 
 export default class MenuBurger extends React.Component{
 
-    toggleMenuBurger = (e)=>{
-        console.log("Clicked")
-        const menuBurger =  document.getElementById("menu-burger-container");
+    componentDidMount(){
+        const navContainer = document.getElementById("nav-container");
+
+        navContainer.addEventListener("click", (e)=>{
+            console.log(e.currentTarget);
+            navContainer.classList.toggle("open-nav-container");
+        });
+    }
+
+    toggleNavMenu = (e)=>{
         const navContainer = document.getElementById("nav-container");
 
         navContainer.classList.toggle("open-nav-container");
-        menuBurger.classList.toggle("menu-burger-container-toggle");
     };
 
     render(){
         return (
-            <button id="menu-burger-container" onClick={this.toggleMenuBurger}>
+            <button id="menu-burger-container" onClick={this.toggleNavMenu}>
                 <div className="menu-burger-line"></div>
                 <div className="menu-burger-line"></div>
                 <div className="menu-burger-line"></div>
