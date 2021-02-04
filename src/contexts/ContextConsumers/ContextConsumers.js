@@ -2,6 +2,7 @@ import React from 'react';
 import AppContext, {AppProvider} from "../AppContext/AppContext";
 import DriverContext, {DriverProvider} from "../DriverContext/DriverContext";
 import TripContext, {TripProvider} from "../TripContext/TripContext";
+import MapContext, {MapProvider} from "../MapContext/MapContext";
 
 export default class ContextConsumers extends React.Component{
     render(){
@@ -13,11 +14,18 @@ export default class ContextConsumers extends React.Component{
                             <TripContext.Consumer>
                                 {
                                     tripContext => (
-                                        <AppProvider 
-                                        driverContext={driverContext}
-                                        tripContext={tripContext}>
-                                            {this.props.children}
-                                        </AppProvider>
+                                        <MapProvider>
+                                            <MapContext.Consumer>
+                                                { mapContext => (
+                                                    <AppProvider 
+                                                    driverContext={driverContext}
+                                                    tripContext={tripContext}
+                                                    mapContext={mapContext}>
+                                                        {this.props.children}
+                                                    </AppProvider>
+                                                )}
+                                            </MapContext.Consumer>
+                                        </MapProvider>
                                     )
                                 }
                             </TripContext.Consumer>
