@@ -16,6 +16,16 @@ export default class Map extends React.Component{
 
     static contextType = AppContext;
 
+    defaultMapContainerStyle = {
+        flex: 1,
+        display: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        zIndex: -1
+    }
+
     getPosition = (context)=>{
         let driverLocation = context.mapContext.driverLocation;
         let defaultPosition = this.state.defaultPosition;
@@ -65,7 +75,7 @@ export default class Map extends React.Component{
                 center={this.getPosition(this.context)}
                 zoom={this.getZoom(this.context)}
                 mapContainerClassName={this.props.className}
-                mapContainerStyle={this.props.mapContainerStyle}
+                mapContainerStyle={this.props.mapContainerStyle || this.defaultMapContainerStyle}
                 options={{
                     fullscreenControl: false,
                     mapTypeControl: false
