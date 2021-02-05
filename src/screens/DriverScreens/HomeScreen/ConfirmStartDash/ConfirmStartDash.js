@@ -11,7 +11,7 @@ export default class ConfirmStartDash extends React.Component{
     render(){
         return (
             <section id="confirm-start-dash-section">
-                <StartDashForm cancelConfirmDash={this.cancelConfirmDash}/>
+                <StartDashForm cancelConfirmDash={this.cancelConfirmDash} history={this.props.history}/>
             </section>
         );
     };

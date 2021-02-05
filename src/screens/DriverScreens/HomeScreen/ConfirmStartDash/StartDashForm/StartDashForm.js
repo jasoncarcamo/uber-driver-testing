@@ -23,6 +23,10 @@ export default class StartDashForm extends React.Component{
         });
     }
 
+    cancelConfirmDash = ()=>{
+        this.props.cancelConfirmDash();
+    }
+
     updateContextDriver = (driver)=>{
         this.context.driverContext.updateDriver(driver);
     }
@@ -41,9 +45,9 @@ export default class StartDashForm extends React.Component{
             phone_charged,
             blanket_space
         };
-        const newDriverActive = {
+        const driverActive = {
             active: true,
-            active_start_time: new Date()
+            paused: false
         };
 
         for( const [key, value] of Object.entries(confirmDashRequirements)){
@@ -57,12 +61,12 @@ export default class StartDashForm extends React.Component{
         };
 
         fetch("http://localhost:7000/api/driver/active", {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 'content-type': "application/json",
                 'authorization': `bearer ${DriverTokenService.getToken()}`
             },
-            body: JSON.stringify(newDriverActive)
+            body: JSON.stringify(driverActive)
         })  
             .then( res => {
                 if(!res.ok){
@@ -74,6 +78,10 @@ export default class StartDashForm extends React.Component{
             .then( resData => {
                 console.log(resData);
                 this.updateContextDriver(resData.updatedDriver);
+
+                this.cancelConfirmDash();
+
+                this.props.history.push("/driver/active");
             })
             .catch( err => {
                 this.setState({
@@ -106,7 +114,8 @@ export default class StartDashForm extends React.Component{
 
                     <p>{this.state.error ? this.state.error : ""}</p>
 
-                    <button id="start-dash-button">Start Dash</button>
+                    <button className="start-dash-button" typ="submit">Start Dash</button>
+                    <button className="start-dash-button" type="button" onClick={this.cancelConfirmDash}>Cancel</button>
                 </fieldset>
             </form>
         );

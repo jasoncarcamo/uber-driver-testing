@@ -1,0 +1,44 @@
+#driver-active-burger-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    right: 2.5em;
+    z-index: 4;
+    transform: translate(0, -50%);
+    width: 1.75em;
+    height: 1.5em;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: white;
+    outline: none;
+}
+
+.driver-active-burger-line-1{
+    width: 1.5em;
+    height: .25em;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border-radius: 10em;
+}
+
+.driver-active-burger-line-2{
+    width: 1.75em;
+    height: .25em;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border-radius: 10em;
+}
+
+.driver-active-burger-line-3{
+    width: 1.25em;
+    height: .25em;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    border-radius: 10em;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import Map from "../Map/Map";
 import StartDashingButton from "./StartDashingButton/StartDashingButton";
 import ConfirmStartDash from "./ConfirmStartDash/ConfirmStartDash";
+import AppContext from "../../../contexts/AppContext/AppContext";
 
 export default class HomeScreen extends React.Component{
     constructor(props){
@@ -11,18 +12,26 @@ export default class HomeScreen extends React.Component{
         }
     }
 
+    static contextType = AppContext;
+
     toggleConfirmDash = ()=>{
         this.setState({
             confirmStartDash: !this.state.confirmStartDash
         });
+    }
+
+    renderStartDashingButton = (context)=>{
+        return !context.driverContext.driver.active ? <StartDashingButton toggleConfirmDash={this.toggleConfirmDash}/> : ""
     }
     
     render(){
         return (
             <section>
                 <Map className="home-screen-map" mapContainerStyle={mapContainerStyle}/>
-                {this.state.confirmStartDash ? <ConfirmStartDash toggleConfirmDash={this.toggleConfirmDash}/> : ""}
-                <StartDashingButton toggleConfirmDash={this.toggleConfirmDash}/>
+
+                {this.state.confirmStartDash ? <ConfirmStartDash toggleConfirmDash={this.toggleConfirmDash} history={this.props.history}/> : ""}
+
+                {this.renderStartDashingButton(this.context)}
             </section>
         );
     };

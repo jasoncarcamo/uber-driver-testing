@@ -1,0 +1,26 @@
+#driver-action-options-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 4em;
+    left: 0;
+}
+
+.driver-active-option{
+    border: .05em solid lightgrey;
+    margin: .5em auto;
+    padding: 1em 0;
+    width: 80%;
+    text-justify: distribute;
+    cursor: pointer;
+    list-style: none;
+    text-align: center;
+}
+
+.driver-active-option:hover{
+    background-color: lightgray !important;
+}
