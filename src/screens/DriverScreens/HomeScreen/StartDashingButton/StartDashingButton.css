@@ -1,0 +1,15 @@
+#start-dashing-button{
+    display: block;
+    position: absolute;
+    bottom: 2em;
+    left: 50%;
+    width: 15em;
+    height: 4.5em;
+    z-index: 0;
+    background-color: red;
+    color: white;
+    transform: translate(-50%, 0);
+    border: none;
+    border-radius: 5em;
+    outline: none;
+}

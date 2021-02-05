@@ -42,13 +42,12 @@ export default class Map extends React.Component{
 
             if(position[key] === defaultPosition[key]){
                 same = true;
-            }
-        }
+            };
+        };
 
         if(same){
             zoom = 3;
         } else{
-            console.log("Not")
             zoom = 17;
         };
 

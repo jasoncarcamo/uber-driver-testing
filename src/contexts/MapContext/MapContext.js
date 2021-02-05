@@ -20,7 +20,9 @@ export class MapProvider extends React.Component{
     }
 
     watchLocation = ()=>{
+        console.log("Watching")
         if(navigator.geolocation){
+            console.log(navigator.geolocation)
             navigator.geolocation.watchPosition(this.setLocation, this.postionError, this.options);
         };
     }
@@ -41,7 +43,7 @@ export class MapProvider extends React.Component{
             driverLocation: this.state.driverLocation,
             setLocation: this.setLocation
         };
-        
+        console.log(value);
         return (
             <MapContext.Provider value={value}>
                 {this.props.children}

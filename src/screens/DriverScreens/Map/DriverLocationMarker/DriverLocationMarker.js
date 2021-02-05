@@ -13,11 +13,11 @@ export default class DriverLocationMarker extends React.Component{
             return "";
         };
 
-        return <Marker position={driverLocation}/>
-    }
+        return <Marker position={driverLocation}/>;
+    };
 
     render(){
         
         return this.renderDriverPosition(this.context);
-    }
-}
+    };
+};
