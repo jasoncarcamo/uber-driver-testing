@@ -76,7 +76,6 @@ export default class StartDashForm extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 this.updateContextDriver(resData.updatedDriver);
 
                 this.cancelConfirmDash();

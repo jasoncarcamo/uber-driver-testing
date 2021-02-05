@@ -48,7 +48,6 @@ export class TripProvider extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 if(resData.driverTrips.length > 0){
                     resData.forEach((trip, i)=>{
                         this.setTrip(trip);
@@ -71,8 +70,6 @@ export class TripProvider extends React.Component{
         const trip = this.state.trip;
 
         trip[newTrip.id] = newTrip;
-
-        console.log("Setting: ", trip);
 
         this.setState({
             trip

@@ -43,11 +43,9 @@ export class DriverProvider extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 this.setDriver(resData.driver);
             })
             .catch( err => {
-                console.log(err);
                 this.setState({
                     error: err.error
                 });
@@ -79,8 +77,6 @@ export class DriverProvider extends React.Component{
             updateDriver: this.updateDriver,
             removeDriver: this.removeDriver
         };
-
-        console.log(value.driver);
 
         return (
             <DriverContext.Provider value={value}>

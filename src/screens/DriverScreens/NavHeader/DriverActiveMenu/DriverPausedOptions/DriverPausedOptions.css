@@ -1,4 +1,4 @@
-#driver-active-options-container{
+#driver-paused-options-container{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -10,7 +10,7 @@
     left: 0;
 }
 
-.driver-active-option{
+.driver-paused-option{
     border: .05em solid lightgrey;
     margin: .5em auto;
     padding: 1em 0;
