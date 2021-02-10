@@ -7,7 +7,10 @@ export default class DriverLocationMarker extends React.Component{
     static contextType = AppContext;
 
     renderDriverPosition = (context)=>{
-        const driverLocation = context.mapContext.driverLocation;
+        const driverLocation = {
+            lat: context.mapContext.driverLocation.last_known_lat,
+            lng: context.mapContext.driverLocation.last_known_lng
+        };
 
         if(!driverLocation.lat || !driverLocation.lng){
             return "";

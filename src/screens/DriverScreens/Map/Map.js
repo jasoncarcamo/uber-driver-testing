@@ -27,7 +27,10 @@ export default class Map extends React.Component{
     }
 
     getPosition = (context)=>{
-        let driverLocation = context.mapContext.driverLocation;
+        let driverLocation = {
+            lat: context.mapContext.driverLocation.last_known_lat,
+            lng: context.mapContext.driverLocation.last_known_lng
+        };;
         let defaultPosition = this.state.defaultPosition;
 
         for(const [key, value] of Object.entries(defaultPosition)){
@@ -65,10 +68,6 @@ export default class Map extends React.Component{
     }
 
     render(){
-        const position = {
-            lat: 41.850033,
-            lng: -87.6500523
-        };
 
         return (
             <GoogleMap

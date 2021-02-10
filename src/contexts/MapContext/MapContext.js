@@ -12,12 +12,13 @@ export class MapProvider extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            driverLocation: {}
+            driverLocation: {},
+            gettingDriverLocation: false
         };
     }
 
     componentDidMount(){
-        this.watchLocation();
+        this.getLocation();
     }
 
     options = {
@@ -26,20 +27,33 @@ export class MapProvider extends React.Component{
         maxiumAge: 0
     };
 
-    watchLocation = ()=>{
+    getLocation = ()=>{
         if(navigator.geolocation){
             navigator.geolocation.watchPosition(this.setLocation, this.postionError, this.options);
         };
     }
 
+    updateDriverLocation = (driver)=>{
+        this.props.driverContext.updateDriver(driver);
+    }
+
     setLocation = (position)=>{
-        console.log(position);
         const driverLocation = {
-            lat: Number(position.coords.latitude),
-            lng: Number(position.coords.longitude)
+            last_known_lat: Number(position.coords.latitude),
+            last_known_lng: Number(position.coords.longitude)
         };
 
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${driverLocation.lat},${driverLocation.lng}&key=AIzaSyAAPqYeOSuJKs63H8A4NwaKp8fjVZo_jao`)
+        console.log(driverLocation)
+
+        if(this.state.gettingDriverLocation){
+            return;
+        };
+
+        this.setState({
+            gettingDriverLocation: true
+        });
+
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${driverLocation.last_known_lat},${driverLocation.last_known_lng}&key=AIzaSyAAPqYeOSuJKs63H8A4NwaKp8fjVZo_jao`)
             .then( res => {
                 if(!res.ok){
                     return res.json().then( e => Promise.reject(e));
@@ -48,24 +62,34 @@ export class MapProvider extends React.Component{
                 return res.json();
             })
             .then( resData => {
+
+                this.setState({
+                    driverLocation
+                });
+
                 geocodeByAddress(resData.results[0].formatted_address)
                     .then( result => {
+                        const driver = Object.assign(this.props.driverContext.driver, driverLocation);
 
-                        driverLocation.zip_code = result[0].address_components[7].long_name;
+                        driver.last_zip_code = result[0].address_components[7].long_name;
+
+                        this.updateDriverLocation(driver);
 
                         this.setState({
-                            driverLocation
+                            gettingDriverLocation: false
                         });
                     })
                     .catch( geoErr => {
                         this.setState({
-                            error: geoErr
+                            error: geoErr,
+                            gettingDriverLocation: false
                         });
                     });
             })
             .catch( err => {
                 this.setState({
-                    error: err.error
+                    error: err.error,
+                    gettingDriverLocation: false
                 });
             });
     }

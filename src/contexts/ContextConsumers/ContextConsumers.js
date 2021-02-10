@@ -3,6 +3,7 @@ import AppContext, {AppProvider} from "../AppContext/AppContext";
 import DriverContext, {DriverProvider} from "../DriverContext/DriverContext";
 import TripContext, {TripProvider} from "../TripContext/TripContext";
 import MapContext, {MapProvider} from "../MapContext/MapContext";
+import NotificationContext, {NotificationProvider} from "../NotificationContext/NotificationContext";
 
 export default class ContextConsumers extends React.Component{
     render(){
@@ -10,19 +11,31 @@ export default class ContextConsumers extends React.Component{
             <DriverProvider>
                 <DriverContext.Consumer>
                     { driverContext => (
-                        <TripProvider>
+                        <TripProvider
+                            driverContext={driverContext}
+                        >
                             <TripContext.Consumer>
                                 {
                                     tripContext => (
-                                        <MapProvider>
+                                        <MapProvider
+                                            driverContext={driverContext}
+                                        >
                                             <MapContext.Consumer>
                                                 { mapContext => (
-                                                    <AppProvider 
-                                                    driverContext={driverContext}
-                                                    tripContext={tripContext}
-                                                    mapContext={mapContext}>
-                                                        {this.props.children}
-                                                    </AppProvider>
+                                                    <NotificationProvider>
+                                                        <NotificationContext.Consumer>
+                                                            {notificationContext => (
+                                                                <AppProvider 
+                                                                    driverContext={driverContext}
+                                                                    tripContext={tripContext}
+                                                                    notificationContext={notificationContext}
+                                                                    mapContext={mapContext}
+                                                                >
+                                                                    {this.props.children}
+                                                                </AppProvider>
+                                                            )}
+                                                        </NotificationContext.Consumer>
+                                                    </NotificationProvider>
                                                 )}
                                             </MapContext.Consumer>
                                         </MapProvider>
