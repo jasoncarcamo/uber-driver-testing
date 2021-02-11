@@ -17,14 +17,17 @@ export default class ContextConsumers extends React.Component{
                             <TripContext.Consumer>
                                 {
                                     tripContext => (
-                                        <MapProvider
+                                        <NotificationProvider
                                             driverContext={driverContext}
+                                            tripContext={tripContext}
                                         >
-                                            <MapContext.Consumer>
-                                                { mapContext => (
-                                                    <NotificationProvider>
-                                                        <NotificationContext.Consumer>
-                                                            {notificationContext => (
+                                            <NotificationContext.Consumer>
+                                                { notificationContext => (
+                                                    <MapProvider
+                                                        driverContext={driverContext}
+                                                    >
+                                                        <MapContext.Consumer>
+                                                            { mapContext => (
                                                                 <AppProvider 
                                                                     driverContext={driverContext}
                                                                     tripContext={tripContext}
@@ -34,11 +37,11 @@ export default class ContextConsumers extends React.Component{
                                                                     {this.props.children}
                                                                 </AppProvider>
                                                             )}
-                                                        </NotificationContext.Consumer>
-                                                    </NotificationProvider>
+                                                        </MapContext.Consumer>
+                                                    </MapProvider>
                                                 )}
-                                            </MapContext.Consumer>
-                                        </MapProvider>
+                                            </NotificationContext.Consumer>
+                                        </NotificationProvider>
                                     )
                                 }
                             </TripContext.Consumer>

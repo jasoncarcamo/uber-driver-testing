@@ -59,7 +59,7 @@ export default class DriverActiveOptions extends React.Component{
                 this.props.history.push("/driver");
             })
             .catch( err => {
-                console.log(err)
+                
                 this.setState({
                     error: err.error,
                     loading: false
@@ -101,7 +101,6 @@ export default class DriverActiveOptions extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 this.updateContextDriver(resData.updatedDriver);
 
                 this.togglePaused();

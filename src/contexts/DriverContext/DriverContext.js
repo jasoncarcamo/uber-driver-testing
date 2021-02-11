@@ -1,6 +1,5 @@
 import React from "react";
 import DriverTokenService from "../../services/DriverTokenService/DriverTokenService";
-import TripFinderContext, {TripFinderProvider} from "./TripFinderContext/TripFinderContext";
 
 const DriverContext = React.createContext({
     driver: {},
@@ -82,7 +81,6 @@ export class DriverProvider extends React.Component{
         return (
             <DriverContext.Provider value={value}>
                 {this.props.children}
-                {this.state.driver.last_zip_code && this.state.driver.active ? <TripFinderProvider driver={this.state.driver}/> : ""}
             </DriverContext.Provider>
         );
     };

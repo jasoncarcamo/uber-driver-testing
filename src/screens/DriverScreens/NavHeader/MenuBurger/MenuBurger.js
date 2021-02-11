@@ -7,7 +7,6 @@ export default class MenuBurger extends React.Component{
         const navContainer = document.getElementById("nav-container");
 
         navContainer.addEventListener("click", (e)=>{
-            console.log(e.currentTarget);
             navContainer.classList.toggle("open-nav-container");
         });
     }

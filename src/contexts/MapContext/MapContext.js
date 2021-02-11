@@ -43,8 +43,6 @@ export class MapProvider extends React.Component{
             last_known_lng: Number(position.coords.longitude)
         };
 
-        console.log(driverLocation)
-
         if(this.state.gettingDriverLocation){
             return;
         };

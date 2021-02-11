@@ -57,7 +57,6 @@ export default class LogInForm extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 DriverTokenService.saveToken(resData.token);
 
                 this.setContextDriver(resData.driver);
@@ -66,8 +65,6 @@ export default class LogInForm extends React.Component{
                 this.props.history.push("/driver");
             })
             .catch( err => {
-                console.log(err);
-
                 this.setState({
                     error: err.error
                 });

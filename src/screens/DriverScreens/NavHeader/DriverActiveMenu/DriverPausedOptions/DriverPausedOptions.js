@@ -16,7 +16,6 @@ export default class DriverPausedOptions extends React.Component{
     }
 
     togglePaused = ()=>{
-        console.log("Toggling")
         this.props.togglePaused();
     }
 
@@ -50,9 +49,7 @@ export default class DriverPausedOptions extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 this.updateContextDriver(resData.updatedDriver);
-
                 this.togglePaused();
                 this.toggleDriverActiveMenu();
             })

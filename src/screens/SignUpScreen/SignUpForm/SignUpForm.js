@@ -55,13 +55,10 @@ export default class SignUpForm extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                console.log(resData);
                 DriverTokenService.saveToken(resData.token);
                 this.props.history.push("/driver");
             })
             .catch( err => {
-                console.log(err);
-
                 this.setState({
                     error: err.error
                 });

@@ -4,6 +4,7 @@ import DriverTokenService from "../../services/DriverTokenService/DriverTokenSer
 const TripContext = React.createContext({
     trip: {},
     getTrip: ()=>{},
+    setTrip: ()=>{},
     editTrip: ()=>{},
     updateTrip: ()=>{},
     removeTrip: ()=>{}
