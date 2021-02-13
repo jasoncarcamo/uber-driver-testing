@@ -15,6 +15,40 @@ const DriverTripServices = {
 
                 return res.json();
             });   
+    },
+    async acceptNewtrip(id, updateTrip){
+        return fetch(`http://localhost:7000/api/trip/confirmation/${id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type': "application/json",
+                'authorization': `bearer ${DriverTokenService.getToken()}`
+            },
+            body: JSON.stringify(updateTrip)
+        })
+            .then( res => {
+                if(!res.ok){
+                    return res.json().then( e => Promise.reject(e));
+                };
+
+                return res.json();
+            });
+    },
+    async declineNewTrip(id, updateTrip){
+        return fetch(`http://localhost:7000/api/trip/confirmation/${id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type': "application/json",
+                'authorization': `bearer ${DriverTokenService.getToken()}`
+            },
+            body: JSON.stringify(updateTrip)
+        })
+            .then( res => {
+                if(!res.ok){
+                    return res.json().then( e => Promise.reject(e));
+                };
+
+                return res.json();
+            });
     }
 };
 

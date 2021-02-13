@@ -3,7 +3,10 @@ import DriverTripServices from "../../services/DriverTripServices/DriverTripServ
 import DriverTokenService from "../../services/DriverTokenService/DriverTokenService";
 
 const NotificationContext = React.createContext({
-    foundTrip: false
+    newTrip: {},
+    foundTrip: false,
+    updateTripContext: ()=>{},
+    removeTripNotification: ()=>{}
 });
 
 export default NotificationContext;
@@ -19,8 +22,10 @@ export class NotificationProvider extends React.Component{
     }
 
     componentDidMount(){
-        this.loadUnacceptedTrip();
-        setInterval(this.findTrip, 5500);
+        if(DriverTokenService.hasToken()){
+            this.loadUnacceptedTrip();
+            setInterval(this.findTrip, 5500);
+        };
     }
 
     loadUnacceptedTrip = ()=>{
@@ -68,6 +73,11 @@ export class NotificationProvider extends React.Component{
             last_known_lat: driver.last_known_lat,
             last_known_lng: driver.last_known_lng
         };
+        console.log(this.props)
+
+        if(Object.is({}, this.props.tripContext.trip)){
+            return;
+        };
 
         if(this.state.searchingTrips){
             return;
@@ -77,7 +87,7 @@ export class NotificationProvider extends React.Component{
             return;
         };
 
-        if(this.props.tripsContext.trip.driver_viewing){
+        if(this.props.tripContext.trip.driver_viewing){
             return;
         };
 
@@ -95,12 +105,9 @@ export class NotificationProvider extends React.Component{
         DriverTripServices.findCloseTripByPositon(position)
             .then( resData => {
                 this.setNewTrip(resData.trip);
-                this.setState({
-                    searchingTrips: false,
-                    foundTrip: true
-                });
             })
             .catch( err => {
+                console.log(err)
                 this.setState({
                     error: err.error,
                     searchingTrips: false,
@@ -111,7 +118,10 @@ export class NotificationProvider extends React.Component{
 
     setNewTrip = (trip)=>{
         this.setState({
-            newTrip: trip
+            newTrip: trip,
+            searchingTrips: false,
+            foundTrip: true,
+            error: ""
         });
     }
 
@@ -119,9 +129,10 @@ export class NotificationProvider extends React.Component{
         this.setNewTrip(trip);
     }
 
-    removeNewTrip = ()=>{
+    removeTripNotification = ()=>{
         this.setState({
             newTrip: {},
+            foundTrip: false,
             error: ""
         });
     }
@@ -131,7 +142,10 @@ export class NotificationProvider extends React.Component{
     }
 
     updateTripContext = (trip)=>{
-        this.props.tripContext.setTripContext(trip);
+        this.props.tripContext.setTrip(trip);
+        this.setState({
+            foundTrip: false
+        })
     }
 
     removeTripContext = ()=>{
@@ -142,13 +156,15 @@ export class NotificationProvider extends React.Component{
         const value = {
             driver: this.props.driverContext.driver,
             foundTrip: this.state.foundTrip,
-            newTrip: this.state.newTrip
+            newTrip: this.state.newTrip,
+            updateTripContext: this.updateTripContext,
+            removeTripNotification: this.removeTripNotification
         };
-        console.log(value)
+        console.log(this.props)
         return (
             <NotificationContext.Provider value={value}>
                 {this.props.children}
             </NotificationContext.Provider>
-        )
-    }
-}
+        );
+    };
+};

@@ -1,5 +1,6 @@
 import React from "react";
 import DriverTokenService from "../../../services/DriverTokenService/DriverTokenService";
+import AppContext from "../../../contexts/AppContext/AppContext";
 
 export default class SignUpForm extends React.Component{
     constructor(props){
@@ -15,6 +16,8 @@ export default class SignUpForm extends React.Component{
             error: ""
         }
     }
+
+    static contextType = AppContext;
 
     componentDidMount(){
         if(DriverTokenService.hasToken()){
@@ -55,7 +58,11 @@ export default class SignUpForm extends React.Component{
                 return res.json();
             })
             .then( resData => {
+                console.log(resData)
                 DriverTokenService.saveToken(resData.token);
+
+                this.setContextDriver(resData.createdDriver);
+
                 this.props.history.push("/driver");
             })
             .catch( err => {
@@ -63,6 +70,10 @@ export default class SignUpForm extends React.Component{
                     error: err.error
                 });
             });
+    }
+
+    setContextDriver = (driver)=>{
+        this.context.driverContext.setDriver(driver);
     }
 
     render(){

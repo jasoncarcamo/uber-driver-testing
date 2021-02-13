@@ -27,6 +27,7 @@ export class TripProvider extends React.Component{
 
     getTrip = ()=>{
         if(!DriverTokenService.hasToken()){
+            console.log("Does not have token")
             return;
         };
 
@@ -42,6 +43,7 @@ export class TripProvider extends React.Component{
             }
         })
             .then( res => {
+                console.log(res)
                 if(!res.ok){
                     return res.json().then( e => Promise.reject(e));
                 };
@@ -49,17 +51,15 @@ export class TripProvider extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                if(resData.driverTrips.length > 0){
-                    resData.forEach((trip, i)=>{
-                        this.setTrip(trip);
-                    });
-                };
+                console.log(resData)
+                this.setTrip(resData.trip);
 
                 this.setState({
                     loading: false
                 });
             })
             .catch( err => {
+                console.log(err)
                 this.setState({
                     error: err.error,
                     loading: false
@@ -68,9 +68,7 @@ export class TripProvider extends React.Component{
     }
 
     setTrip = (newTrip)=>{
-        const trip = this.state.trip;
-
-        trip[newTrip.id] = newTrip;
+        const trip = newTrip
 
         this.setState({
             trip

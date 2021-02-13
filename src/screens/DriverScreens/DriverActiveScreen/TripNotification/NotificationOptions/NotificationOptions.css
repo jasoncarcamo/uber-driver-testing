@@ -1,0 +1,13 @@
+#notification-options-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    width: 100%;
+    height: 5em;
+    padding: 0;
+    margin: 0;
+    border: 1px solid black;
+}
