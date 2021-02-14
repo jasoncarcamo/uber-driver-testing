@@ -23,16 +23,12 @@ export default class DriverActiveScreen extends React.Component{
     renderTripNotification = (context)=>{
         const foundTrip = context.notificationContext.foundTrip;
         const newTrip = context.notificationContext.newTrip;
-        console.log(newTrip, foundTrip)
-
-        if(newTrip === {}){
-            console.log("Empty")
-        }
+       
         if(foundTrip && !Object.is({}, newTrip)){
             return <TripNotification newTrip={newTrip} history={this.props.history}/>
         } else{
             return "";
-        }
+        };
     }
 
     render(){
